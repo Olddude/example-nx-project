@@ -90,6 +90,74 @@
         "staticFilePath": "dist/apps/shell/browser",
         "spa": true
       }
+    },
+    "build-webpack": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/shell",
+        "index": "apps/shell/src/index.html",
+        "main": "apps/shell/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/shell/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/shell/public"
+          }
+        ],
+        "styles": ["apps/shell/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/shell/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all",
+          "optimization": true,
+          "extractLicenses": true,
+          "sourceMap": false
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-mfe": {
+      "executor": "@nx/angular:webpack-dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "shell:build-webpack:production"
+        },
+        "development": {
+          "buildTarget": "shell:build-webpack:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4200,
+        "publicHost": "http://localhost:4200"
+      }
     }
   }
 }

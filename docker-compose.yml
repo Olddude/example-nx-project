@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  shell:
+    build:
+      context: .
+      dockerfile: apps/shell/Dockerfile
+      args:
+        - PRODUCTION=true
+    ports:
+      - "4200:4200"
+    networks:
+      - mfe-network
+    environment:
+      - NODE_ENV=production
+      - PRODUCTION=true
+      - MICROFRONTEND_ONE_URL=http://microfrontend-one:4201
+    depends_on:
+      - microfrontend-one
+    restart: unless-stopped
+
+  microfrontend-one:
+    build:
+      context: .
+      dockerfile: apps/microfrontend-one/Dockerfile
+    ports:
+      - "4201:4201"
+    networks:
+      - mfe-network
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+networks:
+  mfe-network:
+    driver: bridge
