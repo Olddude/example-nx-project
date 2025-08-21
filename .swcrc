@@ -1,0 +1,33 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true,
+      "tsx": false
+    },
+    "transform": {
+      "decoratorMetadata": true,
+      "legacyDecorator": true
+    },
+    "target": "es2022",
+    "loose": false,
+    "externalHelpers": true,
+    "keepClassNames": true
+  },
+  "module": {
+    "type": "es6",
+    "strict": true,
+    "strictMode": true,
+    "lazy": false,
+    "noInterop": false
+  },
+  "sourceMaps": true,
+  "exclude": [
+    "jest.config.ts",
+    ".*\\.spec\\.tsx?$",
+    ".*\\.test\\.tsx?$",
+    "./src/jest-setup\\.ts$",
+    "./**/jest-setup\\.ts$",
+    ".*\\.js$"
+  ]
+}
