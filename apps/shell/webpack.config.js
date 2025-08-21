@@ -3,9 +3,9 @@ const config = require('./module-federation.config');
 
 module.exports = withModuleFederation({
   ...config,
-  remotes: ['mfe1'],
+  remotes: ['microfrontend-one'],
   shared: (libraryName, defaultConfig) => {
-    if (libraryName === '@example-nx-project/angular-components') {
+    if (libraryName === '@example-nx-project/angular-shared') {
       return {
         ...defaultConfig,
         singleton: true,

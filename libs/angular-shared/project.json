@@ -1,7 +1,7 @@
 {
-  "name": "angular-components",
+  "name": "angular-shared",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/angular-components/src",
+  "sourceRoot": "libs/angular-shared/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/angular-components/jest.config.ts"
+        "jestConfig": "libs/angular-shared/jest.config.ts"
       }
     },
     "lint": {

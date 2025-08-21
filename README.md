@@ -45,7 +45,12 @@ npx nx g @nx/angular:app demo
 To generate a new microfrontend, use:
 
 ```sh
-npx nx g @nx/angular:app mfe1 --mfe --mfeType=remote --host=shell --style=scss --routing=true --standalone
+npx nx g @nx/angular:setup-mf libs/microfrontend-one --mfType=remote --host=shell --port=4201
+```
+
+```sh
+npx nx g @nx/angular:setup-mf microfrontend-one --mfType=remote --host=s
+hell --port=4201
 ```
 
 To generate a new library, use:

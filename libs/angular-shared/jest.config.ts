@@ -1,8 +1,8 @@
 export default {
-  displayName: 'angular-components',
+  displayName: 'angular-shared',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/libs/angular-components',
+  coverageDirectory: '../../coverage/libs/angular-shared',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
