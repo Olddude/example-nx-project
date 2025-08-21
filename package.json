@@ -11,6 +11,7 @@
     "test:ci": "nx run-many --target=test --all --configuration=ci",
     "lint": "nx run-many --target=lint --all",
     "e2e": "nx e2e shell-e2e",
+    "e2e:headless": "nx e2e shell-e2e --headless",
     "affected:build": "nx affected --target=build",
     "affected:test": "nx affected --target=test",
     "affected:lint": "nx affected --target=lint",

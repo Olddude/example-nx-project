@@ -15,9 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-    "@example-nx-project/angular-shared": [
-      "libs/angular-shared/src/index.ts"
-    ],
+      "@example-nx-project/angular-shared": [
+        "libs/angular-shared/src/index.ts"
+      ],
       "microfrontend-one/Routes": [
         "apps/microfrontend-one/src/app/remote-entry/entry.routes.ts"
       ]
