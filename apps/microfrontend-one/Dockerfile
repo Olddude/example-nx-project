@@ -35,20 +35,20 @@ COPY --from=builder /app/dist/apps/microfrontend-one ./dist/apps/microfrontend-o
 
 # Create a simple express server for the microfrontend
 RUN echo 'const express = require("express");' > server.js && \
-    echo 'const compression = require("compression");' >> server.js && \
-    echo 'const cors = require("cors");' >> server.js && \
-    echo 'const path = require("path");' >> server.js && \
-    echo 'const app = express();' >> server.js && \
-    echo 'app.use(cors());' >> server.js && \
-    echo 'app.use(compression());' >> server.js && \
-    echo 'app.use(express.static(path.join(__dirname, "dist/apps/microfrontend-one/browser")));' >> server.js && \
-    echo 'app.get("/*", (req, res) => {' >> server.js && \
-    echo '  res.sendFile(path.join(__dirname, "dist/apps/microfrontend-one/browser/index.html"));' >> server.js && \
-    echo '});' >> server.js && \
-    echo 'const PORT = process.env.PORT || 4201;' >> server.js && \
-    echo 'app.listen(PORT, () => {' >> server.js && \
-    echo '  console.log(`Microfrontend-one app listening on port ${PORT}`);' >> server.js && \
-    echo '});' >> server.js
+  echo 'const compression = require("compression");' >> server.js && \
+  echo 'const cors = require("cors");' >> server.js && \
+  echo 'const path = require("path");' >> server.js && \
+  echo 'const app = express();' >> server.js && \
+  echo 'app.use(cors());' >> server.js && \
+  echo 'app.use(compression());' >> server.js && \
+  echo 'app.use(express.static(path.join(__dirname, "dist/apps/microfrontend-one/browser")));' >> server.js && \
+  echo 'app.get("/*", (req, res) => {' >> server.js && \
+  echo '  res.sendFile(path.join(__dirname, "dist/apps/microfrontend-one/browser/index.html"));' >> server.js && \
+  echo '});' >> server.js && \
+  echo 'const PORT = process.env.PORT || 4201;' >> server.js && \
+  echo 'app.listen(PORT, () => {' >> server.js && \
+  echo '  console.log(`Microfrontend-one app listening on port ${PORT}`);' >> server.js && \
+  echo '});' >> server.js
 
 # Expose port
 EXPOSE 4201
