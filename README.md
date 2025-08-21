@@ -42,6 +42,12 @@ To generate a new application, use:
 npx nx g @nx/angular:app demo
 ```
 
+To generate a new microfrontend, use:
+
+```sh
+npx nx g @nx/angular:app mfe1 --mfe --mfeType=remote --host=shell --style=scss --routing=true --standalone
+```
+
 To generate a new library, use:
 
 ```sh

@@ -52,10 +52,7 @@
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true,
       "options": {
-        "lintFilePatterns": [
-          "{projectRoot}/**/*.ts",
-          "{projectRoot}/**/*.html"
-        ]
+        "lintFilePatterns": ["{projectRoot}/**/*.ts", "{projectRoot}/**/*.html"]
       }
     },
     "test": {

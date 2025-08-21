@@ -5,8 +5,7 @@ module.exports = withModuleFederation({
   ...config,
   remotes: ['mfe1'],
   shared: (libraryName, defaultConfig) => {
-    if (libraryName === '@example-nx-project/shared/ui' || 
-        libraryName === '@example-nx-project/shared/data-access') {
+    if (libraryName === '@example-nx-project/angular-components') {
       return {
         ...defaultConfig,
         singleton: true,

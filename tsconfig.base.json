@@ -15,8 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@example-nx-project/shared/ui": ["libs/shared/ui/src/index.ts"],
-      "@example-nx-project/shared/data-access": ["libs/shared/data-access/src/index.ts"]
+      "@example-nx-project/angular-components": [
+        "libs/angular-components/src/index.ts"
+      ]
     },
     "strict": true,
     "esModuleInterop": true,
