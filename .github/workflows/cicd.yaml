@@ -77,20 +77,29 @@ jobs:
       - name: Install
         run: npm ci --legacy-peer-deps
 
-      - name: Extract Version
-        id: version
-        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - name: Set release variables
+        id: release_variables
+        run: |
+          project_name=$(node -p "require('./package.json').name")
+          project_version=$(node -p "require('./package.json').version")
+          build_number=${{ github.run_number }}
+          echo "project_name=$project_name" >> $GITHUB_OUTPUT
+          echo "project_version=$project_version" >> $GITHUB_OUTPUT
+          echo "build_number=$build_number" >> $GITHUB_OUTPUT
 
       - name: Build Affected Libraries
         run: npx nx affected --target=build --base=origin/master --parallel=1
 
       - name: Update Package Versions and Publish
         run: |
-          VERSION=${{ steps.version.outputs.version }}
+          VERSION=${{ steps.release_variables.outputs.project_version }}
+          BUILD_NUMBER=${{ steps.release_variables.outputs.build_number }}
+          FULL_VERSION="$VERSION.$BUILD_NUMBER"
+          
           for lib in $(npx nx show projects --type=lib --affected --base=origin/master); do
             if [ -f "dist/libs/$lib/package.json" ]; then
-              echo "Publishing $lib..."
-              npm version $VERSION --no-git-tag-version --prefix "dist/libs/$lib"
+              echo "Publishing $lib with version $FULL_VERSION..."
+              npm version $FULL_VERSION --no-git-tag-version --prefix "dist/libs/$lib"
               npm publish --access public --prefix "dist/libs/$lib"
             fi
           done
@@ -107,14 +116,15 @@ jobs:
         run: |
           git config --local user.email "github-actions@github.com"
           git config --local user.name "GitHub Actions"
-          git tag -a ${{ steps.variables.outputs.project_version }} -m "Release ${{ steps.release_variables.outputs.project_version }}" || true
-          git push origin ${{ steps.variables.outputs.project_version }} || true
+          FULL_VERSION="${{ steps.release_variables.outputs.project_version }}.${{ steps.release_variables.outputs.build_number }}"
+          git tag -a $FULL_VERSION -m "Release $FULL_VERSION" || true
+          git push origin $FULL_VERSION || true
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          name: Release ${{ steps.variables.outputs.project_version }}
-          tag_name: ${{ steps.variables.outputs.project_version }}
+          name: Release ${{ steps.release_variables.outputs.project_version }}.${{ steps.release_variables.outputs.build_number }}
+          tag_name: ${{ steps.release_variables.outputs.project_version }}.${{ steps.release_variables.outputs.build_number }}
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
