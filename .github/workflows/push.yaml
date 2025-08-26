@@ -1,14 +1,12 @@
-name: CI/CD Pipeline
+name: Push Pipeline
 
 on:
-  pull_request:
-    branches: [master]
   push:
     branches: [master]
   workflow_dispatch:
 
 env:
-  NX_BASE: origin/master
+  NX_BASE: origin/master~1
 
 jobs:
   build:
@@ -49,7 +47,6 @@ jobs:
   release:
     runs-on: ubuntu-22.04
     needs: build
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
     permissions:
       contents: write
       packages: write

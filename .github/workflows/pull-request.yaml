@@ -1,0 +1,43 @@
+name: Pull Request Pipeline
+
+on:
+  pull_request:
+    branches: [master]
+
+env:
+  NX_BASE: origin/master
+
+jobs:
+  validate:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Security Audit
+        run: npm audit || true
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Check Outdated Packages
+        run: npm outdated || true
+
+      - name: Lint Affected
+        run: npm run lint
+
+      - name: Test Affected
+        run: npm run test:ci
+
+      - name: Build Affected
+        run: npm run build
