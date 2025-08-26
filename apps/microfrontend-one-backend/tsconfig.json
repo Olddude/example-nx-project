@@ -8,6 +8,9 @@
     }
   ],
   "compilerOptions": {
+    "types": [
+      "jest"
+    ],
     "esModuleInterop": true
   }
 }

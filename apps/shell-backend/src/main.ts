@@ -1,59 +1,41 @@
 /**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
+ * Main entry point for shell-backend
  */
 
-import express from 'express';
-import * as path from 'path';
-import cors from 'cors';
+import { createApp } from './app.js';
+import { createServer } from './server.js';
+import { config } from './config.js';
 
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to shell-backend!' });
-});
-
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'healthy', service: 'shell-backend' });
-});
-
-app.get('/api/user', (req, res) => {
-  res.json({
-    id: 1,
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    role: 'admin',
+const main = (): void => {
+  const app = createApp();
+  const server = createServer(app);
+  
+  server.on('error', (error: Error) => {
+    console.error(`Server error: ${error.message}`);
+    process.exit(1);
   });
-});
 
-app.get('/api/microfrontends', (req, res) => {
-  res.json([
-    {
-      name: 'microfrontend-one',
-      url: 'http://localhost:4201',
-      status: 'active',
-    },
-  ]);
-});
-
-app.post('/api/auth/login', (req, res) => {
-  const { username, password } = req.body;
-  if (username && password) {
-    res.json({
-      token: 'mock-jwt-token',
-      user: { id: 1, username },
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM received, shutting down gracefully');
+    server.close(() => {
+      console.log('Process terminated');
+      process.exit(0);
     });
-  } else {
-    res.status(400).json({ error: 'Invalid credentials' });
-  }
-});
+  });
 
-const port = process.env.PORT || 3334;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
+  process.on('SIGINT', () => {
+    console.log('SIGINT received, shutting down gracefully');
+    server.close(() => {
+      console.log('Process terminated');
+      process.exit(0);
+    });
+  });
+
+  server.listen(config.port, () => {
+    console.log(`${config.serviceName} listening at http://localhost:${config.port}${config.api.prefix}`);
+  });
+};
+
+// Start the application
+main();

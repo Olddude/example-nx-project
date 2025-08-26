@@ -5,26 +5,9 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nx/esbuild:esbuild",
-      "outputs": [
-        "{workspaceRoot}/dist/apps/shell-backend"
-      ],
+      "executor": "nx:run-commands",
       "options": {
-        "outputPath": "dist/apps/shell-backend",
-        "main": "apps/shell-backend/src/main.ts",
-        "tsConfig": "apps/shell-backend/tsconfig.app.json",
-        "assets": [
-          "apps/shell-backend/src/assets"
-        ],
-        "generatePackageJson": true,
-        "platform": "node",
-        "outputFileName": "bundle.js",
-        "bundle": true,
-        "format": ["cjs"],
-        "external": [],
-        "esbuildOptions": {
-          "outExtension": { ".js": ".js" }
-        }
+        "command": "node apps/shell-backend/esbuild.config.mjs"
       }
     },
     "prune-lockfile": {
@@ -79,6 +62,16 @@
         "production": {
           "buildTarget": "shell-backend:build:production"
         }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/shell-backend/jest.config.ts"
       }
     }
   },

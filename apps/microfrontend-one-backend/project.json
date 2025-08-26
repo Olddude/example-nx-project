@@ -5,26 +5,9 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nx/esbuild:esbuild",
-      "outputs": [
-        "{workspaceRoot}/dist/apps/microfrontend-one-backend"
-      ],
+      "executor": "nx:run-commands",
       "options": {
-        "outputPath": "dist/apps/microfrontend-one-backend",
-        "main": "apps/microfrontend-one-backend/src/main.ts",
-        "tsConfig": "apps/microfrontend-one-backend/tsconfig.app.json",
-        "assets": [
-          "apps/microfrontend-one-backend/src/assets"
-        ],
-        "generatePackageJson": true,
-        "platform": "node",
-        "outputFileName": "bundle.js",
-        "bundle": true,
-        "format": ["cjs"],
-        "external": [],
-        "esbuildOptions": {
-          "outExtension": { ".js": ".js" }
-        }
+        "command": "node apps/microfrontend-one-backend/esbuild.config.mjs"
       }
     },
     "prune-lockfile": {
@@ -79,6 +62,16 @@
         "production": {
           "buildTarget": "microfrontend-one-backend:build:production"
         }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/microfrontend-one-backend/jest.config.ts"
       }
     }
   },
