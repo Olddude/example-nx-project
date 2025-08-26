@@ -7,7 +7,7 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node apps/shell-backend/esbuild.config.mjs"
+        "command": "node -r dotenv/config apps/shell-backend/esbuild.config.mjs"
       }
     },
     "prune-lockfile": {
