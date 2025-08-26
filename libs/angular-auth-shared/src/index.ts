@@ -1,3 +1,1 @@
-export {};
-
-// export * from './lib/components/example-component/example-component';
+export * from './lib/services/auth-service/auth-service';
