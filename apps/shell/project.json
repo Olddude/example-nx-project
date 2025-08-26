@@ -96,7 +96,11 @@
           "buildTarget": "shell:build-base:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "dependsOn": ["shell-bff:serve"],
+      "options": {
+        "proxyConfig": "apps/shell/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
@@ -123,6 +127,6 @@
         "staticFilePath": "dist/apps/shell/browser",
         "spa": true
       }
-    },
+    }
   }
 }
