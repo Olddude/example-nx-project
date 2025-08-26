@@ -4,6 +4,22 @@
   "projectType": "application",
   "sourceRoot": "apps/shell-e2e/src",
   "implicitDependencies": ["shell"],
-  "// targets": "to see all targets run: nx show project shell-e2e --web",
-  "targets": {}
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/shell-e2e/cypress.config.ts",
+        "devServerTarget": "shell:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "shell:serve-static:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
 }

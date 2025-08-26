@@ -1,0 +1,97 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  release:
+    types: [published]
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Audit
+        run: npm audit || true
+
+      - name: Install
+        run: npm ci --legacy-peer-deps
+
+      - name: Outdated
+        run: npm outdated || true
+
+      - name: Lint
+        run: npm run affected:lint
+
+      - name: Test
+        run: npm run affected:test
+
+      - name: Build
+        run: npm run affected:build
+
+      - name: Build Libraries
+        run: |
+          npx nx build angular-shared
+          npx nx build angular-auth-shared
+
+      - name: Variables
+        id: variables
+        run: |
+          echo "name=$(node -p "require('./package.json').name")" >> $GITHUB_OUTPUT
+          echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+  publish-libraries:
+    runs-on: ubuntu-22.04
+    needs: build
+    if: github.event_name == 'release' && github.event.action == 'published'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@olddude'
+
+      - name: Install
+        run: npm ci --legacy-peer-deps
+
+      - name: Extract Version
+        id: version
+        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Build Affected Libraries
+        run: npx nx affected --target=build --base=origin/master --parallel=1
+
+      - name: Update Package Versions and Publish
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          for lib in $(npx nx show projects --type=lib --affected --base=origin/master); do
+            if [ -f "dist/libs/$lib/package.json" ]; then
+              echo "Publishing $lib..."
+              npm version $VERSION --no-git-tag-version --prefix "dist/libs/$lib"
+              npm publish --access public --prefix "dist/libs/$lib"
+            fi
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

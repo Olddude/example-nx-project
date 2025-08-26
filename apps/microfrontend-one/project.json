@@ -7,10 +7,44 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/angular:webpack-browser",
+      "executor": "@angular-architects/native-federation:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/microfrontend-one/browser",
+        "target": "microfrontend-one:build-base",
+        "federationConfigPath": "apps/microfrontend-one/federation.config.js"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "build-base": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/microfrontend-one",
         "index": "apps/microfrontend-one/src/index.html",
         "main": "apps/microfrontend-one/src/main.ts",
         "polyfills": ["zone.js"],
@@ -22,10 +56,7 @@
             "input": "apps/microfrontend-one/public"
           }
         ],
-        "styles": ["apps/microfrontend-one/src/styles.scss"],
-        "customWebpackConfig": {
-          "path": "apps/microfrontend-one/webpack.config.ts"
-        }
+        "styles": ["apps/microfrontend-one/src/styles.scss"]
       },
       "configurations": {
         "production": {
@@ -42,9 +73,9 @@
             }
           ],
           "outputHashing": "all",
-          "customWebpackConfig": {
-            "path": "apps/microfrontend-one/webpack.prod.config.ts"
-          }
+          "optimization": true,
+          "extractLicenses": true,
+          "sourceMap": false
         },
         "development": {
           "buildOptimizer": false,
@@ -59,19 +90,18 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@nx/angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "microfrontend-one:build:production"
+          "buildTarget": "microfrontend-one:build-base:production"
         },
         "development": {
-          "buildTarget": "microfrontend-one:build:development"
+          "buildTarget": "microfrontend-one:build-base:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4201,
-        "publicHost": "http://localhost:4201"
+        "port": 4201
       }
     },
     "extract-i18n": {

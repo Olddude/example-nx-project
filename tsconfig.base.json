@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@example-nx-project/angular-auth-shared": [
+        "libs/angular-auth-shared/src/index.ts"
+      ],
       "@example-nx-project/angular-shared": [
         "libs/angular-shared/src/index.ts"
       ],

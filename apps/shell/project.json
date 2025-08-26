@@ -7,26 +7,11 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular/build:application",
+      "executor": "@angular-architects/native-federation:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/shell",
-        "browser": "apps/shell/src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "apps/shell/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/shell/public"
-          }
-        ],
-        "styles": ["apps/shell/src/styles.scss"],
-        "server": "apps/shell/src/main.server.ts",
-        "ssr": {
-          "entry": "apps/shell/src/server.ts"
-        },
-        "outputMode": "server"
+        "target": "shell:build-base",
+        "federationConfigPath": "apps/shell/federation.config.js"
       },
       "configurations": {
         "production": {
@@ -52,47 +37,8 @@
       },
       "defaultConfiguration": "production"
     },
-    "serve": {
-      "continuous": true,
-      "executor": "@angular/build:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "shell:build:production"
-        },
-        "development": {
-          "buildTarget": "shell:build:development"
-        }
-      },
-      "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular/build:extract-i18n",
-      "options": {
-        "buildTarget": "shell:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/shell/jest.config.ts"
-      }
-    },
-    "serve-static": {
-      "continuous": true,
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "shell:build",
-        "port": 4200,
-        "staticFilePath": "dist/apps/shell/browser",
-        "spa": true
-      }
-    },
-    "build-webpack": {
-      "executor": "@nx/angular:webpack-browser",
+    "build-base": {
+      "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/shell",
@@ -107,11 +53,7 @@
             "input": "apps/shell/public"
           }
         ],
-        "styles": ["apps/shell/src/styles.scss"],
-        "scripts": [],
-        "customWebpackConfig": {
-          "path": "apps/shell/webpack.config.js"
-        }
+        "styles": ["apps/shell/src/styles.scss"]
       },
       "configurations": {
         "production": {
@@ -143,21 +85,44 @@
       },
       "defaultConfiguration": "production"
     },
-    "serve-mfe": {
-      "executor": "@nx/angular:webpack-dev-server",
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "shell:build-webpack:production"
+          "buildTarget": "shell:build-base:production"
         },
         "development": {
-          "buildTarget": "shell:build-webpack:development"
+          "buildTarget": "shell:build-base:development"
         }
       },
-      "defaultConfiguration": "development",
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
       "options": {
-        "port": 4200,
-        "publicHost": "http://localhost:4200"
+        "buildTarget": "shell:build"
       }
-    }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/shell/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "shell:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/shell/browser",
+        "spa": true
+      }
+    },
   }
 }

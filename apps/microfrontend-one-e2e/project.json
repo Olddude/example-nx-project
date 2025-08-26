@@ -5,6 +5,22 @@
   "sourceRoot": "apps/microfrontend-one-e2e/src",
   "tags": [],
   "implicitDependencies": ["microfrontend-one"],
-  "// targets": "to see all targets run: nx show project microfrontend-one-e2e --web",
-  "targets": {}
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/microfrontend-one-e2e/cypress.config.ts",
+        "devServerTarget": "microfrontend-one:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "microfrontend-one:serve-static:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
 }

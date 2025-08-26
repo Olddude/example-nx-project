@@ -21,7 +21,7 @@ npm start                             # Serve shell with mfe1 as dev remote
 
 # Testing
 npx nx test shell                     # Run unit tests
-npx nx e2e shell-e2e                  # Run E2E tests with Playwright
+npx nx e2e shell-e2e                  # Run E2E tests with Cypress
 npm run test:ci                       # CI mode with coverage
 
 # Building
@@ -65,7 +65,7 @@ npx nx g @nx/angular:app <app-name> --mfe --mfeType=remote --host=shell
 - Nx 21.4.0 for monorepo management
 - TypeScript 5.8.x with strict mode
 - Jest for unit testing
-- Playwright for E2E testing
+- Cypress for E2E testing
 - SCSS for styling
 - Angular SSR (Server-Side Rendering) enabled
 
