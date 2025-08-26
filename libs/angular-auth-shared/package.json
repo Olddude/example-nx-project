@@ -1,5 +1,5 @@
 {
-  "name": "@example-nx-project/angular-auth-shared",
+  "name": "@olddude/angular-auth-shared",
   "version": "0.3.0",
   "peerDependencies": {
     "@angular/core": "^20.1.0",
