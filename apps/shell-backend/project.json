@@ -1,49 +1,60 @@
 {
-  "name": "shell-bff",
+  "name": "shell-backend",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/shell-bff/src",
+  "sourceRoot": "apps/shell-backend/src",
   "projectType": "application",
   "targets": {
     "prune-lockfile": {
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "cache": true,
       "executor": "@nx/js:prune-lockfile",
       "outputs": [
-        "{workspaceRoot}/dist/apps/shell-bff/package.json",
-        "{workspaceRoot}/dist/apps/shell-bff/package-lock.json"
+        "{workspaceRoot}/dist/apps/shell-backend/package.json",
+        "{workspaceRoot}/dist/apps/shell-backend/package-lock.json"
       ],
       "options": {
         "buildTarget": "build"
       }
     },
     "copy-workspace-modules": {
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "cache": true,
-      "outputs": ["{workspaceRoot}/dist/apps/shell-bff/workspace_modules"],
+      "outputs": [
+        "{workspaceRoot}/dist/apps/shell-backend/workspace_modules"
+      ],
       "executor": "@nx/js:copy-workspace-modules",
       "options": {
         "buildTarget": "build"
       }
     },
     "prune": {
-      "dependsOn": ["prune-lockfile", "copy-workspace-modules"],
+      "dependsOn": [
+        "prune-lockfile",
+        "copy-workspace-modules"
+      ],
       "executor": "nx:noop"
     },
     "serve": {
       "continuous": true,
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
-        "buildTarget": "shell-bff:build",
+        "buildTarget": "shell-backend:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "shell-bff:build:development"
+          "buildTarget": "shell-backend:build:development"
         },
         "production": {
-          "buildTarget": "shell-bff:build:production"
+          "buildTarget": "shell-backend:build:production"
         }
       }
     }

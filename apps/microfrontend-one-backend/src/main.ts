@@ -14,11 +14,11 @@ app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to microfrontend-one-bff!' });
+  res.send({ message: 'Welcome to microfrontend-one-backend!' });
 });
 
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'healthy', service: 'microfrontend-one-bff' });
+  res.json({ status: 'healthy', service: 'microfrontend-one-backend' });
 });
 
 app.get('/api/data', (req, res) => {

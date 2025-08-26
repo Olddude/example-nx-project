@@ -14,11 +14,11 @@ app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to shell-bff!' });
+  res.send({ message: 'Welcome to shell-backend!' });
 });
 
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'healthy', service: 'shell-bff' });
+  res.json({ status: 'healthy', service: 'shell-backend' });
 });
 
 app.get('/api/user', (req, res) => {
