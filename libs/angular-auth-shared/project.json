@@ -49,6 +49,27 @@
         "cwd": "dist/libs/angular-auth-shared",
         "parallel": false
       }
+    },
+    "patch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm version patch --no-git-tag-version",
+        "cwd": "libs/angular-auth-shared"
+      }
+    },
+    "minor": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm version minor --no-git-tag-version",
+        "cwd": "libs/angular-auth-shared"
+      }
+    },
+    "major": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm version major --no-git-tag-version",
+        "cwd": "libs/angular-auth-shared"
+      }
     }
   }
 }
