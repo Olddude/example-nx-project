@@ -4,7 +4,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug shell-backend with Nx",
+      "name": "shell-backend",
       "runtimeExecutable": "npx",
       "runtimeArgs": [
         "nx",
@@ -12,7 +12,8 @@
         "shell-backend"
       ],
       "env": {
-        "NODE_OPTIONS": "--inspect=9230"
+        "PATH": "/opt/homebrew/bin",
+        "NODE_OPTIONS": "--inspect=9229"
       },
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
@@ -28,7 +29,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug microfrontend-one-backend with Nx",
+      "name": "microfrontend-one-backend",
       "runtimeExecutable": "npx",
       "runtimeArgs": [
         "nx",
@@ -36,7 +37,8 @@
         "microfrontend-one-backend"
       ],
       "env": {
-        "NODE_OPTIONS": "--inspect=9229"
+        "PATH": "/opt/homebrew/bin",
+        "NODE_OPTIONS": "--inspect=9230"
       },
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
