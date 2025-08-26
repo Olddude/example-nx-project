@@ -1,6 +1,6 @@
 {
-  "name": "@olddude/angular-shared",
-  "version": "0.4.0",
+  "name": "@example-nx-project/angular-shared",
+  "version": "0.5.0",
   "peerDependencies": {
     "@angular/common": "^20.1.0",
     "@angular/core": "^20.1.0"
