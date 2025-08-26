@@ -49,4 +49,5 @@
   "[xml]": {
     "editor.defaultFormatter": "redhat.vscode-xml"
   },
+  "nxConsole.generateAiAgentRules": true,
 }
