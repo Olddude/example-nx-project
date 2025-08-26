@@ -8,10 +8,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.d.ts",
-    "../../libs/angular-auth-shared/src/index.ts",
-    "../../libs/angular-shared/src/index.ts",
-    "../microfrontend-one/src/app/remote-entry/entry.routes.ts"
+    "src/**/*.d.ts"
   ],
   "exclude": [
     "jest.config.ts",

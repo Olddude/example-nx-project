@@ -4,7 +4,7 @@ export const appRoutes: Route[] = [
   {
     path: '',
     loadComponent: () => import('@example-nx-project/angular-shared')
-      .then((m) => m.ExampleComponent)
+      .then((m) => m.HomePage)
   },
   {
     path: 'microfrontend-one',

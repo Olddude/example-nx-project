@@ -6,10 +6,7 @@
     "target": "ES2020"
   },
   "include": [
-    "src/**/*.ts",
-    "../../libs/angular-auth-shared/src/index.ts",
-    "../../libs/angular-shared/src/index.ts",
-    "src/app/remote-entry/entry.routes.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",
