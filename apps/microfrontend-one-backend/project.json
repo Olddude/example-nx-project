@@ -5,7 +5,7 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/esbuild:esbuild",
       "outputs": [
         "{workspaceRoot}/dist/apps/microfrontend-one-backend"
       ],
@@ -16,7 +16,15 @@
         "assets": [
           "apps/microfrontend-one-backend/src/assets"
         ],
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "platform": "node",
+        "outputFileName": "bundle.js",
+        "bundle": true,
+        "format": ["cjs"],
+        "external": [],
+        "esbuildOptions": {
+          "outExtension": { ".js": ".js" }
+        }
       }
     },
     "prune-lockfile": {

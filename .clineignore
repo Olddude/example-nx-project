@@ -1,10 +1,8 @@
 .angular
 .claude
-.github
 .nx
 .verdaccio
 .vscode
 dist
 node_modules
 tmp
-
