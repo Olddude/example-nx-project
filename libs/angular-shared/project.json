@@ -8,7 +8,9 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ],
       "options": {
         "project": "libs/angular-shared/ng-package.json"
       },
@@ -24,7 +26,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "libs/angular-shared/jest.config.ts"
       }
@@ -34,10 +38,16 @@
     },
     "publish": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
-        "command": "npm publish",
-        "cwd": "dist/libs/angular-shared"
+        "commands": [
+          "npm version {args.version} --no-git-tag-version",
+          "npm publish --access public"
+        ],
+        "cwd": "dist/libs/angular-shared",
+        "parallel": false
       }
     }
   }

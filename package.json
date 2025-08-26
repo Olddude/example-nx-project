@@ -15,6 +15,7 @@
     "affected:build": "nx affected --target=build",
     "affected:test": "nx affected --target=test",
     "affected:lint": "nx affected --target=lint",
+    "affected:publish": "nx affected --target=publish",
     "graph": "nx graph"
   },
   "private": true,

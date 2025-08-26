@@ -5,9 +5,7 @@ on:
     branches: [master]
   push:
     branches: [master]
-  release:
-    types: [published]
-  workflow_dispatch: # Allow manual triggering
+  workflow_dispatch:
 
 env:
   NX_BASE: origin/master
@@ -24,34 +22,29 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
 
-      - name: Audit
-        run: npm audit || true
-
-      - name: Install
+      - name: Install Dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Outdated
+      - name: Security Audit
+        run: npm audit || true
+
+      - name: Check Outdated Packages
         run: npm outdated || true
 
-      - name: Lint
-        run: npm run affected:lint -- --base=origin/master
+      - name: Lint Affected
+        run: npx nx affected --target=lint --base=${{ env.NX_BASE }}
 
-      - name: Test
-        run: npm run affected:test -- --base=origin/master
+      - name: Test Affected
+        run: npx nx affected --target=test --base=${{ env.NX_BASE }}
 
-      - name: Build
-        run: npm run affected:build -- --base=origin/master
-
-      - name: Build Libraries
-        run: |
-          npx nx build angular-shared
-          npx nx build angular-auth-shared
+      - name: Build Affected
+        run: npx nx affected --target=build --base=${{ env.NX_BASE }}
 
   release:
     runs-on: ubuntu-22.04
@@ -66,7 +59,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -74,53 +67,37 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
           scope: "@olddude"
 
-      - name: Install
+      - name: Install Dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Set release variables
-        id: release_variables
+      - name: Extract Version Info
+        id: version
         run: |
-          project_name=$(node -p "require('./package.json').name")
-          project_version=$(node -p "require('./package.json').version")
-          echo "project_name=$project_name" >> $GITHUB_OUTPUT
-          echo "project_version=$project_version" >> $GITHUB_OUTPUT
+          PROJECT_NAME=$(node -p "require('./package.json').name")
+          PROJECT_VERSION=$(node -p "require('./package.json').version")
+          echo "name=$PROJECT_NAME" >> $GITHUB_OUTPUT
+          echo "version=$PROJECT_VERSION" >> $GITHUB_OUTPUT
 
       - name: Build Affected Libraries
-        run: npx nx affected --target=build --base=origin/master --parallel=1
+        run: npx nx affected --target=build --base=${{ env.NX_BASE }} --parallel=1
 
-      - name: Update Package Versions and Publish
-        run: |
-          VERSION=${{ steps.release_variables.outputs.project_version }}
-          
-          for lib in $(npx nx show projects --type=lib --affected --base=origin/master); do
-            if [ -f "dist/libs/$lib/package.json" ]; then
-              echo "Publishing $lib with version $VERSION..."
-              npm version $VERSION --no-git-tag-version --prefix "dist/libs/$lib"
-              npm publish --access public --prefix "dist/libs/$lib"
-            fi
-          done
+      - name: Publish Affected Libraries
+        run: npx nx affected --target=publish --base=${{ env.NX_BASE }} --parallel=1 -- --version=${{ steps.version.outputs.version }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Variables
-        id: variables
-        run: |
-          echo "project_name=$(node -p "require('./package.json').name")" >> $GITHUB_OUTPUT
-          echo "project_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
       - name: Create Git Tag
         run: |
           git config --local user.email "github-actions@github.com"
           git config --local user.name "GitHub Actions"
-          VERSION="${{ steps.release_variables.outputs.project_version }}"
-          git tag -a $VERSION -m "Release $VERSION" || true
-          git push origin $VERSION || true
+          git tag -a ${{ steps.version.outputs.version }} -m "Release ${{ steps.version.outputs.version }}" || true
+          git push origin ${{ steps.version.outputs.version }} || true
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          name: Release ${{ steps.release_variables.outputs.project_version }}
-          tag_name: ${{ steps.release_variables.outputs.project_version }}
+          name: Release ${{ steps.version.outputs.version }}
+          tag_name: ${{ steps.version.outputs.version }}
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
