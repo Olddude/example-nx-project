@@ -53,12 +53,6 @@ jobs:
           npx nx build angular-shared
           npx nx build angular-auth-shared
 
-      - name: Variables
-        id: variables
-        run: |
-          echo "project_name=$(node -p "require('./package.json').name")" >> $GITHUB_OUTPUT
-          echo "project_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-
   release:
     runs-on: ubuntu-22.04
     needs: build
@@ -102,6 +96,12 @@ jobs:
           done
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Variables
+        id: variables
+        run: |
+          echo "project_name=$(node -p "require('./package.json').name")" >> $GITHUB_OUTPUT
+          echo "project_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
       - name: Create Git Tag
         run: |
