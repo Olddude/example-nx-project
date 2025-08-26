@@ -4,6 +4,21 @@
   "sourceRoot": "apps/microfrontend-one-backend/src",
   "projectType": "application",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/microfrontend-one-backend"
+      ],
+      "options": {
+        "outputPath": "dist/apps/microfrontend-one-backend",
+        "main": "apps/microfrontend-one-backend/src/main.ts",
+        "tsConfig": "apps/microfrontend-one-backend/tsconfig.app.json",
+        "assets": [
+          "apps/microfrontend-one-backend/src/assets"
+        ],
+        "generatePackageJson": true
+      }
+    },
     "prune-lockfile": {
       "dependsOn": [
         "build"

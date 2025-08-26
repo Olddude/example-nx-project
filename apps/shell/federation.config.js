@@ -6,10 +6,10 @@ module.exports = withNativeFederation({
     'microfrontend-one': 'http://localhost:4201/remoteEntry.json'
   },
   shared: {
-    ...shareAll({ 
-      singleton: true, 
-      strictVersion: true, 
-      requiredVersion: 'auto' 
+    ...shareAll({
+      singleton: true,
+      strictVersion: true,
+      requiredVersion: 'auto'
     }),
   },
   skip: [
@@ -30,13 +30,10 @@ module.exports = withNativeFederation({
     'ts-jest',
     'jest',
     '@nx/angular',
-    '@nx/webpack',
     '@nx/jest',
     '@nx/eslint',
     '@nx/workspace',
     'typescript',
     'tslib',
-    'webpack',
-    'webpack-dev-server',
   ]
 });

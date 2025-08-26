@@ -4,6 +4,21 @@
   "sourceRoot": "apps/shell-backend/src",
   "projectType": "application",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/shell-backend"
+      ],
+      "options": {
+        "outputPath": "dist/apps/shell-backend",
+        "main": "apps/shell-backend/src/main.ts",
+        "tsConfig": "apps/shell-backend/tsconfig.app.json",
+        "assets": [
+          "apps/shell-backend/src/assets"
+        ],
+        "generatePackageJson": true
+      }
+    },
     "prune-lockfile": {
       "dependsOn": [
         "build"
