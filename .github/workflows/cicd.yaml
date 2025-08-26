@@ -56,13 +56,13 @@ jobs:
       - name: Variables
         id: variables
         run: |
-          echo "name=$(node -p "require('./package.json').name")" >> $GITHUB_OUTPUT
-          echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+          echo "project_name=$(node -p "require('./package.json').name")" >> $GITHUB_OUTPUT
+          echo "project_version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
-  publish-libraries:
+  release:
     runs-on: ubuntu-22.04
     needs: build
-    if: github.event_name == 'release' && github.event.action == 'published'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
     permissions:
       contents: read
       packages: write
@@ -77,8 +77,8 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@olddude'
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@olddude"
 
       - name: Install
         run: npm ci --legacy-peer-deps
@@ -102,3 +102,19 @@ jobs:
           done
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Git Tag
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git tag -a ${{ steps.variables.outputs.project_version }} -m "Release ${{ steps.release_variables.outputs.project_version }}" || true
+          git push origin ${{ steps.variables.outputs.project_version }} || true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.variables.outputs.project_version }}
+          tag_name: ${{ steps.variables.outputs.project_version }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
