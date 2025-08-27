@@ -1,11 +1,7 @@
 import express from 'express';
 import * as path from 'path';
-import { fileURLToPath } from 'url';
 import cors from 'cors';
-import { config } from './config.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { config } from './config';
 
 export const createApp = () => {
   const app = express();

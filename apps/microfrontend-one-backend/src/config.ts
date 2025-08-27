@@ -11,7 +11,7 @@ export const config = {
   },
   static: {
     assetsPath: '/assets',
-    browserPath: 'browser',
+    browserPath: 'public',
   },
   api: {
     prefix: '/api',

@@ -2,9 +2,9 @@
  * Main entry point for shell-backend
  */
 
-import { createApp } from './app.js';
-import { createServer } from './server.js';
-import { config } from './config.js';
+import { createApp } from './app';
+import { createServer } from './server';
+import { config } from './config';
 
 const main = (): void => {
   const app = createApp();

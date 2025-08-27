@@ -6,8 +6,14 @@
   "targets": {
     "build": {
       "executor": "nx:run-commands",
+      "dependsOn": ["shell:build-base"],
       "options": {
-        "command": "node -r dotenv/config apps/shell-backend/esbuild.config.mjs"
+        "commands": [
+          "node -r dotenv/config apps/shell-backend/esbuild.config.mjs",
+          "mkdir -p dist/apps/shell-backend/public",
+          "cp -r dist/apps/shell/* dist/apps/shell-backend/public/"
+        ],
+        "parallel": false
       }
     },
     "prune-lockfile": {
@@ -17,8 +23,8 @@
       "cache": true,
       "executor": "@nx/js:prune-lockfile",
       "outputs": [
-        "{workspaceRoot}/dist/apps/shell-backend/package.json",
-        "{workspaceRoot}/dist/apps/shell-backend/package-lock.json"
+"{options.outputPath}/package.json",
+        "{options.outputPath}/package-lock.json"
       ],
       "options": {
         "buildTarget": "build"
@@ -30,7 +36,7 @@
       ],
       "cache": true,
       "outputs": [
-        "{workspaceRoot}/dist/apps/shell-backend/workspace_modules"
+"{options.outputPath}/workspace_modules"
       ],
       "executor": "@nx/js:copy-workspace-modules",
       "options": {

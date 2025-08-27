@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { describe, it, expect, beforeEach } from '@jest/globals';
-import { createApp } from '../src/app.js';
+import { createApp } from '../src/app';
 import express from 'express';
 
 describe('Microfrontend One Backend API', () => {
