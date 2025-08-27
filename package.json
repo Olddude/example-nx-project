@@ -4,6 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "reset": "nx reset",
     "start:shell": "nx serve shell",
     "start:microfrontend-one": "nx serve microfrontend-one",
     "build": "nx run-many --target=build --all --configuration=development",
