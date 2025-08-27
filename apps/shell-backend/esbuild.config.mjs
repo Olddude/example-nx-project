@@ -7,7 +7,7 @@ await build({
   bundle: true,
   platform: 'node',
   format: 'cjs',
-  outfile: 'dist/apps/shell-backend/index.js',
+  outfile: 'dist/apps/shell-backend/main.js',
   packages: 'bundle',
   minify: !isDevelopment,
   sourcemap: isDevelopment,

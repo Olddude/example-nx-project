@@ -29,6 +29,7 @@
     "graph": "nx graph"
   },
   "dependencies": {
+    "@angular-builders/custom-webpack": "^20.0.0",
     "@angular-devkit/build-angular": "~20.1.0",
     "@angular/animations": "~20.1.0",
     "@angular/common": "~20.1.0",
@@ -45,7 +46,6 @@
   },
   "devDependencies": {
     "@angular-architects/module-federation": "^20.0.0",
-    "webpack": "^5.90.0",
     "@angular-devkit/core": "~20.1.0",
     "@angular-devkit/schematics": "~20.1.0",
     "@angular/build": "~20.1.0",
@@ -97,7 +97,8 @@
     "tslib": "^2.3.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.29.0",
-    "verdaccio": "^6.0.5"
+    "verdaccio": "^6.0.5",
+    "webpack": "^5.90.0"
   },
   "nx": {
     "includedScripts": []

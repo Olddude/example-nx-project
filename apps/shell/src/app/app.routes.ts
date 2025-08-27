@@ -6,9 +6,9 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('@olddude/angular-shared')
       .then((m) => m.HomePage)
   },
-  // {
-  //   path: 'microfrontend-one',
-  //   loadChildren: () =>
-  //     import('microfrontendOne/Routes').then((m) => m.remoteRoutes),
-  // },
+  {
+    path: 'microfrontend-one',
+    loadChildren: () =>
+      import('microfrontendOne/Routes').then((m) => m.remoteRoutes),
+  },
 ];

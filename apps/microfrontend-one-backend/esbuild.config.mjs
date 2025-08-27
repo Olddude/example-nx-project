@@ -7,7 +7,7 @@ await build({
   bundle: true,
   platform: 'node',
   format: 'cjs',
-  outfile: 'dist/apps/microfrontend-one-backend/index.js',
+  outfile: 'dist/apps/microfrontend-one-backend/main.js',
   packages: 'bundle',
   minify: !isDevelopment,
   sourcemap: isDevelopment,

@@ -44,11 +44,14 @@
       "defaultConfiguration": "production"
     },
     "build-base": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-builders/custom-webpack:browser",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
+        "customWebpackConfig": {
+          "path": "apps/microfrontend-one/webpack.config.js"
+        },
         "outputPath": "dist/apps/microfrontend-one",
         "index": "apps/microfrontend-one/src/index.html",
         "main": "apps/microfrontend-one/src/main.ts",

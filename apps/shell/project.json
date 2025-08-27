@@ -13,7 +13,7 @@
       ],
       "options": {
         "target": "shell:build-base",
-        "webpackConfig": "./webpack.config.js"
+        "webpackConfig": "apps/shell/webpack.config.js"
       },
       "configurations": {
         "production": {
@@ -44,11 +44,14 @@
       "defaultConfiguration": "production"
     },
     "build-base": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-builders/custom-webpack:browser",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
+        "customWebpackConfig": {
+          "path": "apps/shell/webpack.config.js"
+        },
         "outputPath": "dist/apps/shell",
         "index": "apps/shell/src/index.html",
         "main": "apps/shell/src/main.ts",
