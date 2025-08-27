@@ -3,7 +3,7 @@ const { withModuleFederationPlugin } = require('@angular-architects/module-feder
 module.exports = withModuleFederationPlugin({
   name: 'shell',
   remotes: {
-    microfrontendOne: 'microfrontendOne@http://localhost:3334/remoteEntry.js',
+    'microfrontendOne': 'http://localhost:3334/remoteEntry.js',
   },
   shared: {
     '@angular/core': { singleton: true, strictVersion: true, requiredVersion: 'auto' },
