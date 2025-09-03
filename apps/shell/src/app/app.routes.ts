@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { loadRemoteModule } from '@angular-architects/module-federation';
 
 export const appRoutes: Route[] = [
   {
@@ -10,9 +11,12 @@ export const appRoutes: Route[] = [
   {
     path: 'microfrontend-one',
     loadChildren: () =>
-      import('microfrontendOne/Routes')
+      loadRemoteModule({
+        type: 'manifest',
+        remoteName: 'microfrontendOne',
+        exposedModule: './Routes',
+      })
         .then((m) => m.remoteRoutes)
-        // Allow build-time when remote isn't resolvable; handle at runtime
         .catch(() => []),
   },
 ];

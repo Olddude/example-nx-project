@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "reset": "npx nx reset",
-    "start:shell": "npx nx --run-many target=serve",
-    "start:microfrontend-one": "npx nx --run-many target=serve --all",
+    "start:shell": "npx nx serve shell",
+    "start:microfrontend-one": "npx nx serve microfrontend-one",
     "build": "npx nx run-many --target=build --all --configuration=development",
     "build:prod": "npx nx run-many --target=build --all --configuration=production",
     "test": "npx nx run-many --target=test --all",
