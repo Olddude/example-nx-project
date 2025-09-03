@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
-    path: '/',
+    path: '',
     loadComponent: () => import('@olddude/angular-shared')
       .then((m) => m.HomePage)
   }
