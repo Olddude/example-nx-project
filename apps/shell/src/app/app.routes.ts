@@ -4,7 +4,6 @@ import { loadRemoteModule } from '@angular-architects/module-federation';
 export const appRoutes: Route[] = [
   {
     path: '',
-     
     loadComponent: () => import('@olddude/angular-shared')
       .then((m) => m.HomePage)
   },
