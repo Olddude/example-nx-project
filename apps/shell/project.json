@@ -7,13 +7,13 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-architects/module-federation:build",
+      "executor": "@angular-architects/native-federation:build",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
         "target": "shell:build-base",
-        "webpackConfig": "apps/shell/webpack.config.js"
+        "federationConfig": "apps/shell/federation.config.js"
       },
       "configurations": {
         "production": {

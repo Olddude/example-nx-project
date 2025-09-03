@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { loadRemoteModule } from '@angular-architects/module-federation';
+import { loadRemoteModule } from '@angular-architects/native-federation';
 
 export const appRoutes: Route[] = [
   {
@@ -10,11 +10,7 @@ export const appRoutes: Route[] = [
   {
     path: 'microfrontend-one',
     loadChildren: () =>
-      loadRemoteModule({
-        type: 'manifest',
-        remoteName: 'microfrontendOne',
-        exposedModule: './Routes',
-      })
+      loadRemoteModule('microfrontendOne', './Routes')
         .then((m) => m.remoteRoutes)
         .catch(() => []),
   },

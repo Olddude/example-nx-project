@@ -2,9 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": [
-      "node"
-    ]
+    "types": [],
+    "target": "ES2020"
   },
   "include": [
     "src/**/*.ts",

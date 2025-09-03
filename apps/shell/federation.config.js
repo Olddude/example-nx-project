@@ -1,0 +1,62 @@
+const { withNativeFederation, shareAll } = require('@angular-architects/native-federation/config');
+
+module.exports = withNativeFederation({
+  name: 'shell',
+  remotes: {
+    'microfrontendOne': 'http://localhost:4201/remoteEntry.json',
+  },
+  shared: {
+    ...shareAll({ 
+      singleton: true, 
+      strictVersion: true, 
+      requiredVersion: 'auto' 
+    }),
+  },
+  skip: [
+    'rxjs/ajax',
+    'rxjs/fetch', 
+    'rxjs/testing',
+    'rxjs/webSocket',
+    '@olddude/angular-shared',
+    '@olddude/angular-auth-shared',
+    'karma',
+    'node:inspector',
+    'node:worker_threads',
+    '@angular-devkit/build-angular',
+    '@angular/build',
+    '@angular/cli',
+    '@angular/compiler-cli',
+    '@angular-devkit/core',
+    '@angular-devkit/schematics',
+    '@nx/**',
+    '@types/**',
+    'jest',
+    'jest-environment-jsdom',
+    'jest-preset-angular',
+    'jest-util',
+    'cypress',
+    'eslint',
+    'eslint-config-prettier',
+    'eslint-plugin-cypress',
+    'typescript',
+    'typescript-eslint',
+    'ts-node',
+    'ts-jest',
+    'webpack',
+    'postcss',
+    'postcss-url',
+    'autoprefixer',
+    'ng-packagr',
+    'browser-sync',
+    'dotenv',
+    'prettier',
+    'react-refresh',
+    'supertest',
+    'verdaccio',
+    'angular-eslint',
+    'jsonc-eslint-parser',
+    '@typescript-eslint/utils',
+    '@angular-builders/custom-webpack',
+    '@angular-architects/module-federation'
+  ]
+});

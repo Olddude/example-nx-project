@@ -7,13 +7,13 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-architects/module-federation:build",
+      "executor": "@angular-architects/native-federation:build",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
         "target": "microfrontend-one:build-base",
-        "webpackConfig": "./webpack.config.js"
+        "federationConfig": "apps/microfrontend-one/federation.config.js"
       },
       "configurations": {
         "production": {
