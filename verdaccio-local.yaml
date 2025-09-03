@@ -32,5 +32,5 @@ server:
   keepAliveTimeout: 60
 
 # Log settings
-logs:
+log:
   - { type: stdout, format: pretty, level: info }
