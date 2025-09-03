@@ -1,7 +1,6 @@
 .angular
 .claude
 .nx
-.verdaccio
 .vscode
 dist
 node_modules
