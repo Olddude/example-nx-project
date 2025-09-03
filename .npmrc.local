@@ -1,2 +1,4 @@
 registry=https://registry.npmjs.org
 @olddude:registry=http://localhost:4873
+# Do not require credentials for localhost Verdaccio
+always-auth=false

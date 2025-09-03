@@ -46,6 +46,16 @@
         "cwd": "dist/libs/angular-shared"
       }
     },
+    "publish-local": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "command": "npm publish --registry http://localhost:4873",
+        "cwd": "dist/libs/angular-shared"
+      }
+    },
     "publish-versioned": {
       "executor": "nx:run-commands",
       "dependsOn": [

@@ -12,8 +12,9 @@ web:
 auth:
   htpasswd:
     file: ./.verdaccio/htpasswd
-    # Maximum amount of users allowed to register, defaults to "+inf".
-    max_users: -1 # Disable new user registration
+  # Maximum amount of users allowed to register, defaults to "+inf".
+  # Allow creating local users for publishing.
+  max_users: 1000
 
 packages:
   "@olddude/*":

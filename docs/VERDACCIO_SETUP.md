@@ -1,118 +1,67 @@
-# Verdaccio Setup for Standalone Apps
+# Verdaccio Local Registry Setup
 
-This project has been configured to support standalone applications with local package management via Verdaccio.
+This project uses Verdaccio as a local npm registry for development to test publishing packages locally before pushing to GitHub Packages.
 
-## Configuration Overview
+## Configuration
 
-### 1. Standalone Apps
+- **Verdaccio Config**: `verdaccio-local.yaml` - Main configuration for local Verdaccio instance
+- **Default Registry**: `.npmrc` - Points to npm registry (used in CI/CD)
+- **Local Registry**: `.npmrc.local` - Points to local Verdaccio for `@olddude` scope
 
-Each application now has its own `package.json` file:
+## Publishing Workflow
 
-- `apps/shell/package.json` - Shell frontend app
-- `apps/shell-backend/package.json` - Shell backend app  
-- `apps/microfrontend-one/package.json` - Microfrontend One app
-- `apps/microfrontend-one-backend/package.json` - Microfrontend One backend
+### Local Development (Verdaccio)
 
-### 2. Shared Libraries
+1. Start Verdaccio:
 
-The shared libraries are configured as local packages:
+   ```bash
+   npm run verdaccio:start
+   ```
 
-- `@olddude/angular-shared`
-- `@olddude/angular-auth-shared`
+2. Publish packages to local registry:
 
-These are referenced in the root `package.json` using file paths and will be published to Verdaccio for standalone app usage.
+   ```bash
+   npm run publish:local
+   ```
 
-### 3. Registry Configuration
+   This script will:
+   - Switch to local registry configuration (`.npmrc.local`)
+   - Build and publish packages to Verdaccio (using `publish-local` target)
+   - Switch back to default registry configuration
 
-- **Production/CI**: Uses GitHub Packages registry (`https://npm.pkg.github.com`)
-- **Local Development**: Uses Verdaccio (`http://localhost:4873`)
+3. Stop Verdaccio when done:
 
-## Usage Instructions
+   ```bash
+   npm run verdaccio:stop
+   ```
 
-### Starting Verdaccio
+### CI/CD (GitHub Actions)
 
-```bash
-# Start Verdaccio local registry
-npm run verdaccio:start
+The GitHub Actions workflows use the default `.npmrc` configuration:
 
-# Or using Nx directly
-npx nx local-registry
-```
+- **Pull Request** (`pull-request.yaml`): Runs tests and builds only
+- **Push to Master** (`push.yaml`):
+  - Builds and tests
+  - Publishes packages to GitHub Packages registry with `--access public`
+  - Creates GitHub release
 
-### Publishing Libraries to Local Registry
+## Package Targets
 
-```bash
-# Switch to local registry, build and publish libraries, then switch back
-npm run publish:local
+Each library has two publish targets:
 
-# Or manually:
-npm run use-local-registry
-npm run publish:libs
-npm run use-remote-registry
-```
+- `publish`: Used by GitHub Actions, includes `--access public` flag
+- `publish-local`: Used for local Verdaccio, no access flag needed
 
-### Using Local Registry for Development
+## Switching Between Registries
 
-```bash
-# Switch to local registry
-npm run use-local-registry
+- **Use local registry**: `npm run use-local-registry`
+- **Use remote registry**: `npm run use-remote-registry`
 
-# Install packages (will use Verdaccio)
-npm install
+## Verdaccio Features
 
-# Switch back to remote registry when done
-npm run use-remote-registry
-```
+The local Verdaccio setup (`verdaccio-local.yaml`) is configured for:
 
-### Building and Running Apps
-
-```bash
-# Build all apps
-npm run build
-
-# Run specific apps
-npm run start:shell
-npm run start:microfrontend-one
-
-# The backend apps will start automatically with their frontends
-```
-
-## CI/CD Compatibility
-
-The GitHub Actions workflow (`push.yaml`) automatically overrides the registry configuration by setting `registry-url: "https://npm.pkg.github.com"` in the Setup Node step. This ensures:
-
-- Local development uses Verdaccio
-- CI/CD uses GitHub Packages
-- No conflicts between environments
-
-## Available Scripts
-
-| Script | Description |
-|--------|-------------|
-| `verdaccio` | Start Verdaccio registry |
-| `verdaccio:start` | Start Verdaccio in background |
-| `verdaccio:stop` | Stop Verdaccio |
-| `use-local-registry` | Switch to local Verdaccio registry |
-| `use-remote-registry` | Switch back to GitHub Packages registry |
-| `publish:local` | Build and publish libraries to Verdaccio |
-| `publish:libs` | Build and publish shared libraries only |
-
-## Troubleshooting
-
-### If Verdaccio is not accessible
-
-1. Ensure Verdaccio is running: `npm run verdaccio:start`
-2. Check if port 4873 is available: `lsof -i :4873`
-3. Verify `.npmrc` points to local registry: `cat .npmrc`
-
-### If packages are not found
-
-1. Ensure libraries are published: `npm run publish:local`
-2. Check Verdaccio UI: <http://localhost:4873>
-3. Clear npm cache: `npm cache clean --force`
-
-### To reset to original state
-
-```bash
-git checkout .npmrc
-npm install
+- Anonymous publishing (no authentication required)
+- Web UI available at <http://localhost:4873>
+- Storage in `.verdaccio/storage` directory
+- No uplink to npm registry (purely local)
