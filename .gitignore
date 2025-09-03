@@ -49,3 +49,6 @@ Thumbs.db
 # Local environment files
 .env*
 !.env.example
+
+# Local npm repo app data
+.verdaccio/
