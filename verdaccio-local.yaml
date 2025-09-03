@@ -3,6 +3,7 @@
 # No uplink - purely local registry
 
 storage: ./.verdaccio/storage
+plugins: ./.verdaccio/plugins
 
 web:
   enable: true
