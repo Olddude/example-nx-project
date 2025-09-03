@@ -19,10 +19,10 @@
     "baseUrl": ".",
     "paths": {
       "@olddude/angular-auth-shared": [
-        "libs/angular-auth-shared/src/index.ts"
+        "dist/libs/angular-auth-shared/index.d.ts"
       ],
       "@olddude/angular-shared": [
-        "libs/angular-shared/src/index.ts"
+        "dist/libs/angular-shared/index.d.ts"
       ],
       "microfrontend-one/Routes": [
         "apps/microfrontend-one/src/app/remote-entry/entry.routes.ts"
