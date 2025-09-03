@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "reset": "npx nx reset",
-    "start:shell": "npx nx serve shell",
-    "start:microfrontend-one": "npx nx serve microfrontend-one",
+    "start:shell": "npx nx --run-many target=serve",
+    "start:microfrontend-one": "npx nx --run-many target=serve --all",
     "build": "npx nx run-many --target=build --all --configuration=development",
     "build:prod": "npx nx run-many --target=build --all --configuration=production",
     "test": "npx nx run-many --target=test --all",
@@ -104,7 +104,7 @@
     "tslib": "^2.3.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.29.0",
-    "verdaccio": "^6.0.5",
+    "verdaccio": "^6.1.6",
     "webpack": "^5.90.0"
   },
   "nx": {
