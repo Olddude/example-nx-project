@@ -10,10 +10,10 @@ web:
 
 auth:
   htpasswd:
-  file: ./.verdaccio/htpasswd
-  # Maximum amount of users allowed to register, defaults to "+inf".
-  # Keep it high, but anonymous publish is already allowed below so no login is required.
-  max_users: 1000
+    file: ./.verdaccio/htpasswd
+    # Maximum amount of users allowed to register, defaults to "+inf".
+    # Keep it high, but anonymous publish is already allowed below so no login is required.
+    max_users: 1000
 
 packages:
   "@olddude/*":

@@ -27,8 +27,11 @@
     "e2e:headless": "npx nx e2e shell-e2e --headless",
     "graph": "npx nx graph",
     "verdaccio": "npx nx local-registry",
+  "verdaccio:npm": "npx verdaccio -c verdaccio-local.yaml",
     "verdaccio:start": "npx nx local-registry &",
     "verdaccio:stop": "npx nx stop-local-registry",
+  "registry:npm:on": "npm config set registry http://localhost:4873/",
+  "registry:npm:off": "npm config delete registry",
     "publish:local": "npx nx run-many --target=publish-local --all",
     "publish:remote": "npx nx run-many --target=publish --all"
   },
