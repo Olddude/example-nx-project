@@ -1,6 +1,6 @@
 {
   "name": "@olddude/example-nx-project",
-  "version": "0.7.0",
+  "version": "0.6.0",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -44,8 +44,8 @@
     "@angular/platform-browser": "~20.1.0",
     "@angular/platform-browser-dynamic": "~20.1.0",
     "@angular/router": "~20.1.0",
-    "@olddude/angular-shared": "*",
-    "@olddude/angular-auth-shared": "*",
+    "@olddude/angular-shared": "file:libs/angular-shared",
+    "@olddude/angular-auth-shared": "file:libs/angular-auth-shared",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "rxjs": "~7.8.0",

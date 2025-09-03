@@ -44,17 +44,14 @@
       "defaultConfiguration": "production"
     },
     "build-base": {
-      "executor": "@angular-builders/custom-webpack:browser",
+      "executor": "@angular/build:application",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
-        "customWebpackConfig": {
-          "path": "apps/shell/webpack.config.js"
-        },
         "outputPath": "dist/apps/shell",
         "index": "apps/shell/src/index.html",
-        "main": "apps/shell/src/main.ts",
+        "browser": "apps/shell/src/main.ts",
         "polyfills": [
           "zone.js"
         ],
@@ -90,9 +87,7 @@
           "sourceMap": false
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true

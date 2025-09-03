@@ -44,17 +44,14 @@
       "defaultConfiguration": "production"
     },
     "build-base": {
-      "executor": "@angular-builders/custom-webpack:browser",
+      "executor": "@angular/build:application",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
-        "customWebpackConfig": {
-          "path": "apps/microfrontend-one/webpack.config.js"
-        },
         "outputPath": "dist/apps/microfrontend-one",
         "index": "apps/microfrontend-one/src/index.html",
-        "main": "apps/microfrontend-one/src/main.ts",
+        "browser": "apps/microfrontend-one/src/main.ts",
         "polyfills": [
           "zone.js"
         ],
@@ -90,9 +87,7 @@
           "sourceMap": false
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
