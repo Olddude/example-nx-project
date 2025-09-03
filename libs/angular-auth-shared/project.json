@@ -1,0 +1,95 @@
+{
+  "name": "angular-auth-shared",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/angular-auth-shared/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ],
+      "options": {
+        "project": "libs/angular-auth-shared/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/angular-auth-shared/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/angular-auth-shared/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/angular-auth-shared/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "command": "npm publish --access public",
+        "cwd": "dist/libs/angular-auth-shared"
+      }
+    },
+    "publish-local": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "command": "npm publish --registry http://localhost:4873",
+        "cwd": "dist/libs/angular-auth-shared"
+      }
+    },
+    "publish-versioned": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "commands": [
+          "npm version {args.version} --no-git-tag-version",
+          "npm publish --access public"
+        ],
+        "cwd": "dist/libs/angular-auth-shared",
+        "parallel": false
+      }
+    },
+    "patch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm version patch --no-git-tag-version",
+        "cwd": "libs/angular-auth-shared"
+      }
+    },
+    "minor": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm version minor --no-git-tag-version",
+        "cwd": "libs/angular-auth-shared"
+      }
+    },
+    "major": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm version major --no-git-tag-version",
+        "cwd": "libs/angular-auth-shared"
+      }
+    }
+  }
+}
