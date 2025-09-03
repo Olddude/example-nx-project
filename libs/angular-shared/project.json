@@ -42,6 +42,16 @@
         "build"
       ],
       "options": {
+        "command": "npm publish --access public",
+        "cwd": "dist/libs/angular-shared"
+      }
+    },
+    "publish-versioned": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
         "commands": [
           "npm version {args.version} --no-git-tag-version",
           "npm publish --access public"

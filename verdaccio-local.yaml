@@ -1,0 +1,36 @@
+# Verdaccio configuration for local development
+# This config allows anonymous publishing and reading
+# No uplink - purely local registry
+
+storage: ./.verdaccio/storage
+plugins: ./.verdaccio/plugins
+
+web:
+  enable: true
+  title: Verdaccio Local Registry
+
+auth:
+  htpasswd:
+    file: ./.verdaccio/htpasswd
+    # Maximum amount of users allowed to register, defaults to "+inf".
+    max_users: -1 # Disable new user registration
+
+packages:
+  "@olddude/*":
+    # Allow all users (including non-authenticated users) to read and publish packages
+    access: $all
+    publish: $anonymous
+    unpublish: $anonymous
+
+  "**":
+    # Allow all users to read packages (for any other packages you might add)
+    access: $all
+    publish: $anonymous
+
+# You can specify HTTP/1.1 server keep alive timeout in seconds for incoming connections.
+server:
+  keepAliveTimeout: 60
+
+# Log settings
+logs:
+  - { type: stdout, format: pretty, level: info }

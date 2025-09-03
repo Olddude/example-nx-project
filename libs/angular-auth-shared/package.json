@@ -6,8 +6,5 @@
     "jest-preset-angular": "~14.6.1"
   },
   "dependencies": {},
-  "sideEffects": false,
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  }
+  "sideEffects": false
 }

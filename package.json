@@ -26,7 +26,14 @@
     "affected:major": "npm version major --no-git-tag-version && nx affected --target=major",
     "e2e": "nx e2e shell-e2e",
     "e2e:headless": "nx e2e shell-e2e --headless",
-    "graph": "nx graph"
+    "graph": "nx graph",
+    "verdaccio": "nx local-registry",
+    "verdaccio:start": "nx local-registry &",
+    "verdaccio:stop": "nx stop-local-registry",
+    "use-local-registry": "cp .npmrc.local .npmrc",
+    "use-remote-registry": "git checkout .npmrc",
+    "publish:local": "npm run use-local-registry && npm run publish:libs && npm run use-remote-registry",
+    "publish:libs": "nx run-many --target=publish"
   },
   "dependencies": {
     "@angular-builders/custom-webpack": "^20.0.0",
@@ -39,6 +46,8 @@
     "@angular/platform-browser": "~20.1.0",
     "@angular/platform-browser-dynamic": "~20.1.0",
     "@angular/router": "~20.1.0",
+    "@olddude/angular-shared": "file:libs/angular-shared",
+    "@olddude/angular-auth-shared": "file:libs/angular-auth-shared",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "rxjs": "~7.8.0",
