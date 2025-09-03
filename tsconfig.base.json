@@ -18,6 +18,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@olddude/angular-shared": [
+        "libs/angular-shared/src/index.ts"
+      ],
+      "@olddude/angular-auth-shared": [
+        "libs/angular-auth-shared/src/index.ts"
+      ],
       "microfrontend-one/Routes": [
         "apps/microfrontend-one/src/app/remote-entry/entry.routes.ts"
       ]
