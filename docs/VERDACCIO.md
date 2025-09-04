@@ -16,27 +16,6 @@ Verdaccio is a lightweight private npm proxy registry that allows you to:
 - Node.js and npm installed
 - All project dependencies installed (`npm install`)
 
-## Quick Start
-
-Run the following commands in order:
-
-```bash
-# 1. Start Verdaccio server
-npm run verdaccio
-
-# 2. In a new terminal, configure authentication
-echo -n 'admin:admin123' | base64 | npm set //localhost:4873/:_authToken /dev/stdin
-
-# 3. Set npm to use local registry
-npm run registry:local:on
-
-# 4. Build all packages
-npm run build
-
-# 5. Publish packages to local registry
-npm run publish:local
-```
-
 ## Detailed Steps
 
 ### 1. Start Verdaccio Server
@@ -54,36 +33,7 @@ This will:
 - Store packages in `.verdaccio/storage/`
 - Keep the server running (leave this terminal open)
 
-### 2. Configure Authentication
-
-The authentication is pre-configured with an admin user. Run the configuration script:
-
-```bash
-echo -n 'admin:admin123' | base64 | npm set //localhost:4873/:_authToken /dev/stdin
-```
-
-This script sets up the necessary authentication tokens for publishing packages.
-
-**Default Credentials:**
-
-- Username: `admin`
-- Password: `admin123`
-
-### 3. Switch to Local Registry
-
-Point npm to use your local Verdaccio registry instead of the public npm registry:
-
-```bash
-npm run registry:local:on
-```
-
-To switch back to the public npm registry later:
-
-```bash
-npm run registry:local:off
-```
-
-### 4. Build Packages
+### 2. Build Packages
 
 Build all packages in the monorepo:
 
@@ -95,7 +45,7 @@ npm run build
 npm run build:prod
 ```
 
-### 5. Publish Packages
+### 3. Publish Packages
 
 Publish packages to your local Verdaccio registry:
 
@@ -115,21 +65,6 @@ Open your browser and navigate to:
 ```bash
 open http://localhost:4873/
 ```
-
-You'll see the Verdaccio web interface with all published packages.
-
-## Available Scripts
-
-| Script | Description |
-|--------|-------------|
-| `npm run verdaccio` | Start Verdaccio server |
-| `npm run verdaccio:login` | Login to Verdaccio (interactive) |
-| `npm run registry:local:on` | Switch npm to use local registry |
-| `npm run registry:local:off` | Switch npm back to public registry |
-| `npm run build` | Build all packages (development) |
-| `npm run build:prod` | Build all packages (production) |
-| `npm run publish:local` | Publish packages to local registry |
-| `npm run publish:remote` | Publish packages to remote registry |
 
 ## Working with Published Packages
 
@@ -165,20 +100,12 @@ npm run major
 
 ```bash
 .verdaccio/
-├── htpasswd           # User authentication file
-└── storage/           # Published packages storage
+└── storage/
     ├── @olddude/
     │   ├── angular-shared/
     │   └── angular-auth-shared/
     └── .verdaccio-db.json
 ```
-
-## Security Notes
-
-- The default credentials (admin/admin123) are for local development only
-- Never commit `.verdaccio/storage/` or `.verdaccio/htpasswd` with real credentials
-- Use environment variables for production credentials
-- The `.verdaccio/` directory is already in `.gitignore`
 
 ## Additional Resources
 

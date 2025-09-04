@@ -1,7 +1,3 @@
-# Verdaccio configuration for local development
-# This config allows anonymous publishing and reading
-# With uplink to npmjs for packages not found locally
-
 storage: ./.verdaccio/storage
 plugins: ./.verdaccio/plugins
 
@@ -9,38 +5,23 @@ web:
   enable: true
   title: Verdaccio Local Registry
 
-auth:
-  htpasswd:
-    file: ./.verdaccio/htpasswd
-    # Maximum amount of users allowed to register, defaults to "+inf".
-    # Keep it high, but anonymous publish is already allowed below so no login is required.
-    max_users: 1000
-
-# Configure upstream to npmjs
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 
 packages:
   "@olddude/*":
-    # Allow all users (including non-authenticated users) to read and publish packages
     access: $all
-    publish: $anonymous
-    unpublish: $anonymous
-    # Don't proxy @olddude packages - they should only be in local registry
+    publish: $all
+    unpublish: $all
     proxy: ""
 
   "**":
-    # Allow all users to read packages (for any other packages you might add)
     access: $all
-    publish: $anonymous
-    # Proxy to npmjs for packages not found locally
     proxy: npmjs
 
-# You can specify HTTP/1.1 server keep alive timeout in seconds for incoming connections.
 server:
   keepAliveTimeout: 60
 
-# Log settings
 log:
-  - { type: stdout, format: pretty, level: info }
+  - { type: stdout, format: pretty, level: debug }
