@@ -12,8 +12,8 @@
     "@angular/platform-browser-dynamic": "~20.1.0",
     "@angular/router": "~20.1.0",
     "@angular-architects/module-federation": "^20.0.0",
-    "@olddude/angular-shared": "*",
-    "@olddude/angular-auth-shared": "*",
+    "@olddude/angular-shared": "0.6.0",
+    "@olddude/angular-auth-shared": "0.6.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

@@ -41,8 +41,6 @@
     "@angular/platform-browser": "~20.1.0",
     "@angular/platform-browser-dynamic": "~20.1.0",
     "@angular/router": "~20.1.0",
-    "@olddude/angular-auth-shared": "file:libs/angular-auth-shared",
-    "@olddude/angular-shared": "file:libs/angular-shared",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "rxjs": "~7.8.0",
