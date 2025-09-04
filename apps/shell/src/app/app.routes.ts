@@ -1,14 +1,17 @@
 import { Route } from '@angular/router';
+import { loadRemoteModule } from '@angular-architects/native-federation';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () => import('@example-nx-project/angular-shared')
+    loadComponent: () => import('@olddude/angular-shared')
       .then((m) => m.HomePage)
   },
   {
     path: 'microfrontend-one',
     loadChildren: () =>
-      import('microfrontend-one/Routes').then((m) => m.remoteRoutes),
+      loadRemoteModule('microfrontendOne', './Routes')
+        .then((m) => m.remoteRoutes)
+        .catch(() => []),
   },
 ];

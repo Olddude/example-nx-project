@@ -13,7 +13,7 @@
       ],
       "options": {
         "target": "microfrontend-one:build-base",
-        "federationConfigPath": "apps/microfrontend-one/federation.config.js"
+        "federationConfig": "apps/microfrontend-one/federation.config.js"
       },
       "configurations": {
         "production": {
@@ -29,7 +29,8 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "sourceMap": false
         },
         "development": {
           "buildOptimizer": false,
@@ -43,14 +44,14 @@
       "defaultConfiguration": "production"
     },
     "build-base": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
         "outputPath": "dist/apps/microfrontend-one",
         "index": "apps/microfrontend-one/src/index.html",
-        "main": "apps/microfrontend-one/src/main.ts",
+        "browser": "apps/microfrontend-one/src/main.ts",
         "polyfills": [
           "zone.js"
         ],
@@ -86,9 +87,7 @@
           "sourceMap": false
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -109,8 +108,12 @@
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4201
-      }
+        "port": 4201,
+        "proxyConfig": "apps/microfrontend-one/proxy.conf.json"
+      },
+      "dependsOn": [
+        "microfrontend-one-backend:serve"
+      ]
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

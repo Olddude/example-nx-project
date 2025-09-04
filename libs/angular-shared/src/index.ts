@@ -4,6 +4,4 @@ export * from './lib/components/footer-component/footer-component';
 
 // Pages
 export * from './lib/pages/home-page/home-page';
-export * from './lib/pages/login-page/login-page';
-
 export * from './lib/pages/not-found-page/not-found-page';

@@ -10,16 +10,19 @@
     "importHelpers": true,
     "target": "es2022",
     "module": "esnext",
-    "lib": ["es2022", "dom"],
+    "lib": [
+      "es2022",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@example-nx-project/angular-auth-shared": [
-        "libs/angular-auth-shared/src/index.ts"
-      ],
-      "@example-nx-project/angular-shared": [
+      "@olddude/angular-shared": [
         "libs/angular-shared/src/index.ts"
+      ],
+      "@olddude/angular-auth-shared": [
+        "libs/angular-auth-shared/src/index.ts"
       ],
       "microfrontend-one/Routes": [
         "apps/microfrontend-one/src/app/remote-entry/entry.routes.ts"
@@ -29,5 +32,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
