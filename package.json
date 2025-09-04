@@ -28,7 +28,7 @@
     "graph": "npx nx graph",
     "verdaccio": "npx verdaccio -c verdaccio.yaml",
     "publish:local": "npx nx run-many --target=publish-local --all",
-    "publish:remote": "npx nx run-many --target=publish --all"
+    "publish": "npx nx run-many --target=publish --all"
   },
   "dependencies": {
     "@angular-builders/custom-webpack": "^20.0.0",
